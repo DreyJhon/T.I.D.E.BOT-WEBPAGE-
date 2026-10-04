@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#071e2b">
+<title>T.I.D.E.BOT | Environmental Research Dashboard</title>
+<style>
+:root{--navy:#071e2b;--navy2:#0b2b3b;--teal:#12c7c2;--blue:#3287f5;--ink:#102c43;--muted:#647b8d;--paper:#f1f7fa;--line:#d9e6ed;--white:#fff;--green:#13cba5;--shadow:0 12px 34px rgba(7,30,43,.09)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--paper);color:var(--ink);line-height:1.55}button,a{font:inherit}button{cursor:pointer}.wrap{width:min(1220px,92%);margin:auto}
+header{position:sticky;top:0;z-index:10;background:rgba(5,25,37,.96);backdrop-filter:blur(14px);color:#fff;border-bottom:1px solid #ffffff1a}
+.nav{height:70px;display:flex;align-items:center;justify-content:space-between;gap:24px}.brand{display:flex;align-items:center;gap:11px;font-weight:850;letter-spacing:.15em;font-size:18px;white-space:nowrap}.brand-mark{width:35px;height:30px;display:grid;place-items:center;color:var(--teal);font-size:28px}.navlinks{display:flex;align-items:center;gap:22px}.navlinks a{font-size:12px;text-decoration:none;color:#d6e5ed}.navlinks a:hover{color:var(--teal)}.nav-actions{display:flex;gap:8px;align-items:center}.live-pill{border:1px solid #2e7283;color:#c6f9f1;background:#0b3040;border-radius:999px;padding:8px 13px;font-size:12px}.live-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--green);margin-right:7px;box-shadow:0 0 0 4px #13cba51c}.menu{display:none;background:none;border:1px solid #355564;color:white;border-radius:9px;padding:7px 10px}
+.hero{position:relative;overflow:hidden;background:linear-gradient(90deg,rgba(4,25,38,.97) 0%,rgba(4,31,44,.85) 48%,rgba(4,31,44,.25) 100%),linear-gradient(135deg,#0b4457,#0a2837);color:white;min-height:435px;display:flex;align-items:center}
+.hero:after{content:"";position:absolute;right:-6%;top:-34%;width:62%;height:160%;border:1px solid #65e9e01a;border-radius:50%;box-shadow:0 0 0 50px #65e9e00b,0 0 0 100px #65e9e007;pointer-events:none}
+.hero-inner{position:relative;z-index:1;display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center;padding:54px 0}.eyebrow{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#85e8e1;font-weight:750}.hero h1{font-size:clamp(42px,6vw,74px);line-height:.98;letter-spacing:-.055em;margin:17px 0}.hero h1 span{color:var(--teal)}.hero h2{font-size:20px;line-height:1.35;max-width:560px;margin:0 0 14px}.hero p{max-width:550px;color:#c5d7e1;font-size:14px}.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:25px}.btn{border:0;border-radius:999px;padding:11px 17px;font-size:12px;font-weight:750;transition:transform .2s,filter .2s;text-decoration:none;display:inline-flex;align-items:center;gap:8px}.btn:hover{transform:translateY(-2px);filter:brightness(1.05)}.btn-primary{background:linear-gradient(120deg,#15c6d2,#3587f5);color:white}.btn-outline{border:1px solid #8db2c4;background:#ffffff08;color:white}.hero-art{position:relative;min-height:280px;display:grid;place-items:center}.orb{position:absolute;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,#0f8493 0%,#0e5267 40%,#0a3448 69%,transparent 70%);opacity:.75}.bot-illustration{position:relative;width:min(100%,430px);filter:drop-shadow(0 25px 25px #0005)}.bot-body{margin:auto;width:76%;height:110px;border:2px solid #77c9d7;border-radius:20px 20px 35px 35px;background:linear-gradient(145deg,#d9edf1,#537e8b 45%,#122f3c 46%,#173d4a);position:relative;box-shadow:inset 0 -15px 0 #0b2935}.sensorbar{position:absolute;top:18px;left:20%;right:20%;height:31px;background:#061823;border:2px solid #68aab7;border-radius:8px;display:flex;justify-content:space-evenly;align-items:center}.eye{width:17px;height:17px;border:3px solid #78d8e3;border-radius:50%;background:#071e2b;box-shadow:0 0 13px #15c6d2}.wire{position:absolute;top:-24px;left:40%;width:34px;height:35px;border:2px solid #20b9bd;border-bottom:0;border-radius:30px 30px 0 0}.float{position:absolute;top:52px;width:24%;height:66px;border-radius:35px;background:linear-gradient(90deg,#f6ffff,#8ecbd4 50%,#397b8b);border:2px solid #c3f1f4;box-shadow:inset -9px 0 0 #47899a}.float.left{left:0;transform:rotate(-8deg)}.float.right{right:0;transform:rotate(8deg)}.net{width:43%;height:76px;margin:-3px auto 0;border:3px solid #5c9ba7;border-top:0;border-radius:0 0 30px 30px;background:repeating-linear-gradient(45deg,#8ac7ce22 0 5px,#8ac7ce88 5px 6px),repeating-linear-gradient(-45deg,#8ac7ce22 0 5px,#8ac7ce88 5px 6px);clip-path:polygon(0 0,100% 0,83% 100%,17% 100%)}.prop{position:absolute;right:1%;bottom:32px;width:43px;height:43px;border:4px solid #94c6d0;border-radius:50%;background:conic-gradient(transparent 0 15%,#94c6d0 15% 25%,transparent 25% 40%,#94c6d0 40% 50%,transparent 50% 65%,#94c6d0 65% 75%,transparent 75% 90%,#94c6d0 90%)}.art-caption{position:absolute;bottom:3px;right:0;color:#b9d9e2;font-size:10px;letter-spacing:.1em;text-transform:uppercase}
+.featurebar{background:#092432;color:white}.features{display:grid;grid-template-columns:repeat(6,1fr);padding:20px 0}.feature{text-align:center;padding:6px 10px;border-right:1px solid #ffffff22}.feature:last-child{border:0}.feature .ico{font-size:24px;color:var(--teal)}.feature b{display:block;font-size:12px;margin:5px 0}.feature small{display:block;font-size:10px;color:#b4cbd5}
+main{padding:25px 0 45px}.section-head{display:flex;align-items:end;justify-content:space-between;gap:18px;margin:16px 0}.section-head h2{font-size:23px;letter-spacing:-.03em;margin:0}.section-head p{color:var(--muted);font-size:12px;margin:4px 0 0}.tag{font-size:10px;text-transform:uppercase;letter-spacing:.12em;font-weight:800;color:#148f92;background:#d9f7f3;border-radius:999px;padding:7px 10px}
+.dashboard{display:grid;grid-template-columns:1.08fr .92fr;gap:14px}.panel{background:white;border:1px solid #e0eaf0;border-radius:15px;box-shadow:var(--shadow);padding:20px;min-width:0}.panel.dark{background:linear-gradient(145deg,#082331,#0b2d3e);color:white;border-color:#17495a;box-shadow:none}.panel-title{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:15px}.panel-title h3{font-size:15px;margin:0}.panel-title p{font-size:11px;color:var(--muted);margin:3px 0 0}.dark .panel-title p{color:#abc4cf}.tiny-status{font-size:11px;color:var(--green)}.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.metric{border:1px solid #1b5367;background:#0b2a3a;border-radius:11px;padding:13px 12px;min-width:0}.metric .mi{font-size:21px;color:var(--teal)}.metric label{display:block;color:#b8d0db;font-size:10px;margin:7px 0}.metric strong{font-size:21px;white-space:nowrap}.metric em{font-style:normal;color:#a7c2ce;font-size:10px}.metric .state{color:var(--green);font-size:15px}.demo-note{font-size:10px;color:#b9d2dc;margin-top:13px;padding:9px 11px;border:1px dashed #4c7889;border-radius:8px}.chart-wrap{height:220px;width:100%}canvas{width:100%;height:100%;display:block}.chart-foot{display:flex;justify-content:space-between;font-size:10px;color:#a8c5d1;margin-top:4px}.status-list{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}.status-item{font-size:11px;color:#c5d9e1;display:flex;align-items:center;gap:8px}.status-item .live-dot{margin:0;width:6px;height:6px}
+.content-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:14px;margin-top:14px}.problem-card{display:grid;grid-template-columns:115px 1fr;gap:18px;align-items:stretch}.water-art{border-radius:10px;min-height:180px;background:linear-gradient(150deg,#0c6579,#124459 48%,#0b2d3e);display:grid;place-items:center;color:#c1f7f3;font-size:48px;position:relative;overflow:hidden}.water-art:after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent 0 16px,#a6e8ec12 17px 18px)}.problem-card h3,.objectives h3{margin:0 0 8px;font-size:17px}.problem-card p{font-size:12px;color:var(--muted);margin:0}.text-btn{border:1px solid #5aa6c0;background:white;color:#087f9d;border-radius:999px;padding:8px 13px;font-size:11px;font-weight:750;margin-top:15px}.objectives{grid-column:auto}.objective-list{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:18px}.objective{padding:0 13px;border-right:1px solid var(--line)}.objective:first-child{padding-left:0}.objective:last-child{border:0}.number{width:39px;height:39px;border-radius:50%;background:linear-gradient(135deg,#17aaa8,#0d5677);color:white;display:grid;place-items:center;font-weight:800;margin-bottom:9px}.objective p{font-size:11px;color:#526c7f;margin:0}
+.lower-grid{display:grid;grid-template-columns:1.15fr .85fr 1fr;gap:14px;margin-top:14px}.prototype-diagram{min-height:190px;display:grid;place-items:center;background:radial-gradient(circle at 50% 50%,#e3f5f6,#f8fbfc 70%);border:1px solid #e4edf2;border-radius:10px;overflow:hidden}.mini-bot{transform:scale(.78);width:310px;max-width:100%}.component-list{display:grid;gap:8px;margin-top:14px}.component-row{display:flex;align-items:center;gap:9px;font-size:11px}.component-row span{color:#148f92;font-size:16px}.steps{display:grid;gap:12px}.step{display:grid;grid-template-columns:27px 1fr;gap:10px;align-items:start}.step-num{background:#0d667b;color:white;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-size:10px;font-weight:800}.step p{font-size:11px;margin:3px 0 0;color:#587184}.gallery-main{height:130px;border-radius:10px;background:linear-gradient(145deg,#0a3446,#147e8b);display:grid;place-items:center;color:white;font-size:48px;overflow:hidden}.gallery-caption{font-size:12px;font-weight:750;margin-top:10px}.gallery-sub{font-size:10px;color:var(--muted)}.gallery-controls{display:flex;justify-content:space-between;align-items:center;margin-top:14px}.dots{display:flex;gap:6px}.dotbtn{width:7px;height:7px;border-radius:50%;border:0;background:#b9cbd4;padding:0}.dotbtn.active{background:#0e99a5}.arrowbtn{border:1px solid var(--line);background:white;border-radius:50%;width:30px;height:30px;color:#0e7188}
+.method-team{display:grid;grid-template-columns:1.3fr .7fr;gap:14px;margin-top:14px}.method-steps{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:19px}.method{border-right:1px solid #ffffff24;padding:0 8px}.method:last-child{border:0}.method-icon{width:35px;height:35px;border:1px solid #3caab7;border-radius:50%;display:grid;place-items:center;color:#63e1df;font-size:16px;margin-bottom:8px}.method b{display:block;font-size:11px;line-height:1.3}.method small{display:block;color:#a8c3cf;font-size:10px;margin-top:5px}.team-members{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.person{display:flex;gap:8px;align-items:center;font-size:10px;color:#d3e4ea}.avatar{width:31px;height:31px;border-radius:50%;background:#d8e7ed;color:#315c6c;display:grid;place-items:center;font-size:15px;flex-shrink:0}.school{border-top:1px solid #ffffff24;margin-top:18px;padding-top:15px;font-size:11px;color:#c2d9e1}.school strong{display:block;color:white}
+.research-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:15px}.tab{padding:9px 13px;border:1px solid var(--line);background:white;border-radius:999px;font-size:11px;color:#526c7f}.tab.active{background:#0b3445;color:white;border-color:#0b3445}.tab-content{font-size:13px;color:#536e80;min-height:75px}.tab-content h4{font-size:15px;color:var(--ink);margin:0 0 6px}.tab-content p{margin:0}.data-controls{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.select{border:1px solid #c9dbe3;border-radius:9px;background:white;padding:8px 10px;font-size:11px;color:#29485b}.mini-btn{border:1px solid #c9dbe3;background:white;border-radius:9px;padding:8px 11px;font-size:11px;color:#29485b}.mini-btn.active{background:#d8f8f2;border-color:#82d9cc}
+footer{background:#061b27;color:#d2e2e9;padding:26px 0}.footer-row{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}.footer-row p{font-size:11px;color:#9fbac7;margin:5px 0}.footer-links{display:flex;gap:15px;flex-wrap:wrap}.footer-links a{color:#d2e2e9;text-decoration:none;font-size:11px}.toast{position:fixed;right:20px;bottom:20px;z-index:30;background:#082b3b;color:white;padding:13px 17px;border-radius:12px;box-shadow:0 10px 35px #0003;font-size:12px;max-width:320px;opacity:0;transform:translateY(15px);transition:.25s;pointer-events:none}.toast.show{opacity:1;transform:translateY(0)}.modal-backdrop{display:none;position:fixed;inset:0;background:#061b27b8;z-index:25;place-items:center;padding:20px}.modal-backdrop.open{display:grid}.modal{background:white;border-radius:17px;padding:24px;max-width:560px;width:100%;box-shadow:0 20px 70px #0004}.modal h3{margin:0 0 10px}.modal p,.modal li{font-size:13px;color:#5c7484}.modal-close{float:right;border:0;background:#edf4f7;border-radius:50%;width:30px;height:30px}
+@media(max-width:980px){.navlinks{gap:12px}.navlinks a{font-size:11px}.hero-inner{grid-template-columns:1fr .8fr}.features{grid-template-columns:repeat(3,1fr);row-gap:15px}.feature:nth-child(3){border:0}.dashboard{grid-template-columns:1fr}.content-grid{grid-template-columns:1fr}.lower-grid{grid-template-columns:1fr 1fr}.lower-grid .panel:last-child{grid-column:1/-1}.method-team{grid-template-columns:1fr}.team-members{grid-template-columns:repeat(4,1fr)}}
+@media(max-width:680px){.nav{height:62px}.navlinks{display:none;position:absolute;top:62px;left:0;right:0;background:#071e2b;padding:18px 5%;flex-direction:column;align-items:flex-start}.navlinks.open{display:flex}.menu{display:block}.live-pill{font-size:0;padding:9px}.live-pill .live-dot{margin:0}.hero-inner{grid-template-columns:1fr;padding:42px 0}.hero-art{min-height:220px}.hero h1{font-size:50px}.features{grid-template-columns:repeat(2,1fr)}.feature:nth-child(3){border-right:1px solid #ffffff22}.feature:nth-child(2n){border:0}.metrics{grid-template-columns:repeat(2,1fr)}.panel{padding:15px}.content-grid,.lower-grid{grid-template-columns:1fr}.lower-grid .panel:last-child{grid-column:auto}.problem-card{grid-template-columns:85px 1fr}.water-art{min-height:180px}.objective-list{grid-template-columns:repeat(2,1fr);row-gap:17px}.objective:nth-child(2){border:0}.objective:nth-child(3){padding-left:0}.method-steps{grid-template-columns:repeat(2,1fr);row-gap:16px}.method:nth-child(2n){border:0}.team-members{grid-template-columns:repeat(2,1fr)}.section-head{align-items:flex-start;flex-direction:column}.status-list{grid-template-columns:1fr 1fr}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#home" style="color:white;text-decoration:none"><span class="brand-mark">≋</span><span>T.I.D.E.BOT</span></a>
+    <nav class="navlinks" id="navlinks">
+      <a href="#home">Home</a><a href="#about">About</a><a href="#research">Research</a><a href="#prototype">Prototype</a><a href="#data">Data</a><a href="#gallery">Gallery</a><a href="#team">Team</a>
+    </nav>
+    <div class="nav-actions"><button class="live-pill" onclick="document.querySelector('#data').scrollIntoView({behavior:'smooth'})"><span class="live-dot"></span>Live Data</button><button class="menu" id="menuBtn" aria-label="Open navigation">☰</button></div>
+  </div>
+</header>
+
+<section class="hero" id="home">
+  <div class="wrap hero-inner">
+    <div>
+      <div class="eyebrow">Environmental Research Project</div>
+      <h1>T.I.D.E.<span>BOT</span></h1>
+      <h2>A Floating Robotic System for the Collection of Floating Plastic Waste</h2>
+      <p>A student research project exploring how accessible robotics, distance sensors, and a floating collection mechanism may help address plastic waste in waterways.</p>
+      <div class="hero-actions"><a class="btn btn-primary" href="#prototype">⌁ Explore Prototype</a><a class="btn btn-outline" href="#research">Explore Research ↓</a></div>
+    </div>
+    <div class="hero-art" aria-label="Illustration of a floating waste-collection robot">
+      <div class="orb"></div>
+      <div class="bot-illustration">
+        <div class="wire"></div><div class="float left"></div><div class="float right"></div>
+        <div class="bot-body"><div class="sensorbar"><span class="eye"></span><span class="eye"></span></div></div>
+        <div class="net"></div><div class="prop"></div>
+      </div>
+      <div class="art-caption">Concept illustration · replace with actual prototype photo</div>
+    </div>
+  </div>
+</section>
+
+<div class="featurebar"><div class="wrap features">
+  <div class="feature"><div class="ico">♧</div><b>Waste Collection</b><small>Designed to gather floating debris</small></div>
+  <div class="feature"><div class="ico">⌁</div><b>Obstacle Detection</b><small>Two HC-SR04 sensors</small></div>
+  <div class="feature"><div class="ico">▦</div><b>Arduino-Based</b><small>Microcontroller system</small></div>
+  <div class="feature"><div class="ico">◉</div><b>Data Monitoring</b><small>Dashboard interface concept</small></div>
+  <div class="feature"><div class="ico">♧</div><b>Environmental Focus</b><small>Cleaner waterways</small></div>
+  <div class="feature"><div class="ico">◇</div><b>Accessible Build</b><small>Common components</small></div>
+</div></div>
+
+<main class="wrap">
+  <div class="section-head" id="data"><div><h2>Monitoring Dashboard</h2><p>Explore how a future sensor-connected dashboard could present system readings.</p></div><span class="tag">Demo interface</span></div>
+  <div class="dashboard">
+    <section class="panel dark">
+      <div class="panel-title"><div><h3>Sensor Readings</h3><p>Illustrative values for interface demonstration</p></div><span class="tiny-status"><span class="live-dot"></span>Demo mode</span></div>
+      <div class="metrics">
+        <div class="metric"><div class="mi">⌁</div><label>Front Sensor</label><strong id="frontVal">152</strong> <em>cm</em></div>
+        <div class="metric"><div class="mi">⌁</div><label>Side Sensor</label><strong id="sideVal">118</strong> <em>cm</em></div>
+        <div class="metric"><div class="mi">♧</div><label>Collection Count</label><strong id="collectVal">0</strong> <em>items*</em></div>
+        <div class="metric"><div class="mi">◉</div><label>Prototype Status</label><strong class="state" id="statusVal">Standby</strong></div>
+      </div>
+      <div class="demo-note">⚠ SIMULATED DEMO DATA. These numbers are generated in the browser and are not readings from a physical T.I.D.E.BOT prototype.</div>
+      <div class="data-controls" style="margin-top:14px"><button class="btn btn-primary" id="startDemo">▶ Start demo stream</button><button class="mini-btn" id="pauseDemo">Pause</button><button class="mini-btn" id="resetDemo">Reset</button></div>
+    </section>
+    <section class="panel dark">
+      <div class="panel-title"><div><h3>Distance History</h3><p>Example front-sensor distance · last 30 seconds</p></div><span class="tiny-status" id="streamLabel">● Paused</span></div>
+      <div class="chart-wrap"><canvas id="distanceChart" aria-label="Simulated distance history chart"></canvas></div>
+      <div class="chart-foot"><span>Earlier →</span><span>Distance (cm)</span><span>← Latest</span></div>
+      <div class="status-list"><div class="status-item"><span class="live-dot"></span>Arduino Uno <span style="margin-left:auto">Demo</span></div><div class="status-item"><span class="live-dot"></span>Motor driver <span style="margin-left:auto">Demo</span></div><div class="status-item"><span class="live-dot"></span>Front sensor <span style="margin-left:auto">Demo</span></div><div class="status-item"><span class="live-dot"></span>Side sensor <span style="margin-left:auto">Demo</span></div></div>
+    </section>
+  </div>
+
+  <div class="content-grid" id="about">
+    <section class="panel problem-card">
+      <div class="water-art">≋</div><div><h3>The Problem</h3><p>Floating plastic waste can accumulate in waterways and travel toward larger bodies of water. The project explores a small prototype that may assist in collecting floating debris in a controlled test environment.</p><button class="text-btn" data-modal="problemModal">Learn more →</button></div>
+    </section>
+    <section class="panel objectives" id="research">
+      <h3>Research Objectives</h3>
+      <div class="objective-list">
+        <div class="objective"><div class="number">01</div><p>Design and develop a floating prototype for collecting floating plastic waste.</p></div>
+        <div class="objective"><div class="number">02</div><p>Integrate ultrasonic sensors to assist with obstacle-distance detection.</p></div>
+        <div class="objective"><div class="number">03</div><p>Evaluate the prototype’s collection performance through standardized testing.</p></div>
+        <div class="objective"><div class="number">04</div><p>Identify limitations and improvements for future versions.</p></div>
+      </div>
+    </section>
+  </div>
+
+  <div class="lower-grid">
+    <section class="panel" id="prototype">
+      <div class="panel-title"><div><h3>The Prototype</h3><p>Concept diagram, not a scale engineering drawing</p></div><span class="tag">Hardware</span></div>
+      <div class="prototype-diagram"><div class="bot-illustration mini-bot"><div class="wire"></div><div class="float left"></div><div class="float right"></div><div class="bot-body"><div class="sensorbar"><span class="eye"></span><span class="eye"></span></div></div><div class="net"></div><div class="prop"></div></div></div>
+      <div class="component-list">
+        <div class="component-row"><span>◉</span><b>Arduino Uno R3</b> <span style="color:#617c8b;font-size:10px">Main controller</span></div>
+        <div class="component-row"><span>⌁</span><b>2 × HC-SR04</b> <span style="color:#617c8b;font-size:10px">Front and side</span></div>
+        <div class="component-row"><span>▤</span><b>L298N driver</b> <span style="color:#617c8b;font-size:10px">Motor control</span></div>
+        <div class="component-row"><span>♧</span><b>Collection net</b> <span style="color:#617c8b;font-size:10px">Floating debris</span></div>
+      </div>
+      <button class="text-btn" data-modal="componentsModal">View component notes →</button>
+    </section>
+    <section class="panel">
+      <div class="panel-title"><div><h3>How It Works</h3><p>Proposed system sequence</p></div></div>
+      <div class="steps">
+        <div class="step"><span class="step-num">1</span><p><b>Float</b><br>The platform is supported by its flotation elements.</p></div>
+        <div class="step"><span class="step-num">2</span><p><b>Move</b><br>The propulsion system moves the prototype through the test area.</p></div>
+        <div class="step"><span class="step-num">3</span><p><b>Detect</b><br>Two ultrasonic sensors measure distance to nearby obstacles.</p></div>
+        <div class="step"><span class="step-num">4</span><p><b>Collect</b><br>The collection net is used to gather floating test material.</p></div>
+        <div class="step"><span class="step-num">5</span><p><b>Measure</b><br>Collected material and trial observations are recorded for analysis.</p></div>
+      </div>
+    </section>
+    <section class="panel" id="gallery">
+      <div class="panel-title"><div><h3>Project Gallery</h3><p>Placeholder slides for your actual documentation</p></div><span class="tag" id="slideCounter">01 / 04</span></div>
+      <div class="gallery-main" id="galleryIcon">▧</div><div class="gallery-caption" id="galleryTitle">Prototype Overview</div><div class="gallery-sub" id="gallerySub">Replace this slide with a photo of the assembled device.</div>
+      <div class="gallery-controls"><button class="arrowbtn" id="prevSlide" aria-label="Previous slide">‹</button><div class="dots" id="galleryDots"></div><button class="arrowbtn" id="nextSlide" aria-label="Next slide">›</button></div>
+    </section>
+  </div>
+
+  <div class="content-grid" style="grid-template-columns:1fr 1fr;margin-top:14px">
+    <section class="panel" id="methodology">
+      <div class="panel-title"><div><h3>Explore the Research</h3><p>Select a section to preview its purpose.</p></div></div>
+      <div class="research-tabs" role="tablist"><button class="tab active" data-tab="design">Design</button><button class="tab" data-tab="sampling">Sampling</button><button class="tab" data-tab="testing">Testing</button><button class="tab" data-tab="analysis">Analysis</button></div>
+      <div class="tab-content" id="tabContent"><h4>Research design</h4><p>The study documents the design, construction, and testing of a floating prototype. Update this section to match the exact research design approved in your paper.</p></div>
+    </section>
+    <section class="panel">
+      <div class="panel-title"><div><h3>Results & Data Log</h3><p>Use this area to present verified trial data.</p></div><span class="tag">Research record</span></div>
+      <p style="font-size:12px;color:#60798a">No experimental results have been entered yet. Add measurements from your actual trials before using this dashboard for a presentation or defense.</p>
+      <div class="data-controls"><button class="text-btn" id="downloadCsv">Download demo log (CSV)</button><button class="text-btn" data-modal="resultsModal">Data notes</button></div>
+      <div style="font-size:10px;color:#7a909d;margin-top:10px">CSV export is labelled as demo data and should not be treated as research findings.</div>
+    </section>
+  </div>
+
+  <div class="method-team" id="team">
+    <section class="panel dark">
+      <div class="panel-title"><div><h3>Methodology at a Glance</h3><p>Replace with your approved methods and actual procedure.</p></div></div>
+      <div class="method-steps">
+        <div class="method"><div class="method-icon">⌕</div><b>Research Design</b><small>Prototype development</small></div>
+        <div class="method"><div class="method-icon">⌖</div><b>Target Sampling</b><small>Standardized conditions</small></div>
+        <div class="method"><div class="method-icon">⚙</div><b>Construction</b><small>Component integration</small></div>
+        <div class="method"><div class="method-icon">▷</div><b>Testing</b><small>Controlled test area</small></div>
+        <div class="method"><div class="method-icon">▤</div><b>Evaluation</b><small>Record and analyze</small></div>
+      </div>
+    </section>
+    <section class="panel dark">
+      <div class="panel-title"><div><h3>Research Team</h3><p>Replace placeholders with confirmed details.</p></div></div>
+      <div class="team-members"><div class="person"><span class="avatar">♙</span><span><b>Researcher 1</b><br>Role / name</span></div><div class="person"><span class="avatar">♙</span><span><b>Researcher 2</b><br>Role / name</span></div><div class="person"><span class="avatar">♙</span><span><b>Researcher 3</b><br>Role / name</span></div><div class="person"><span class="avatar">♙</span><span><b>Research Adviser</b><br>Name</span></div></div>
+      <div class="school"><strong>Divine Word College of Calapan</strong>Basic Education Department · Freinademetz Campus</div>
+    </section>
+  </div>
+</main>
+
+<footer id="references"><div class="wrap footer-row"><div><div class="brand"><span class="brand-mark">≋</span><span>T.I.D.E.BOT</span></div><p>Small steps in innovation. A cleaner tomorrow.</p><p>Student research project · Prototype concept</p></div><div class="footer-links"><a href="#research">Research</a><a href="#prototype">Prototype</a><a href="#data">Dashboard</a><a href="#references" id="refsBtn">References</a></div></div></footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div class="modal-backdrop" id="modalBackdrop" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="modal"><button class="modal-close" id="closeModal" aria-label="Close dialog">×</button><h3 id="modalTitle">More information</h3><div id="modalBody"></div></div></div>
+<script>
+const $=s=>document.querySelector(s);
+const toast=(msg)=>{const t=$("#toast");t.textContent=msg;t.classList.add("show");clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>t.classList.remove("show"),2800)};
+$("#menuBtn").addEventListener("click",()=>$("#navlinks").classList.toggle("open"));
+document.querySelectorAll("#navlinks a").forEach(a=>a.addEventListener("click",()=>$("#navlinks").classList.remove("open")));
+
+const tabCopy={
+ design:["Research design","The study documents the design, construction, and testing of a floating prototype. Update this section to match the exact research design approved in your paper."],
+ sampling:["Target sampling","Describe the exact sampling location, target materials, sample quantity, and standardized procedure from your approved methodology. Do not publish proposed details as completed work."],
+ testing:["Prototype testing","Record the test environment, trial duration, starting conditions, safety precautions, and how collection performance is measured in each trial."],
+ analysis:["Data analysis","Insert the actual measurements and the statistical or descriptive methods specified in the research paper. Explain limitations and avoid unsupported claims."]
+};
+document.querySelectorAll("[data-tab]").forEach(btn=>btn.addEventListener("click",()=>{document.querySelectorAll("[data-tab]").forEach(b=>b.classList.toggle("active",b===btn));const [h,p]=tabCopy[btn.dataset.tab];$("#tabContent").innerHTML=`<h4>${h}</h4><p>${p}</p>`}));
+
+const slides=[
+ ["▧","Prototype Overview","Replace this slide with a photo of the assembled device."],
+ ["⌁","Sensor Placement","Add a close-up showing the front and side HC-SR04 sensors."],
+ ["♧","Collection Mechanism","Add a photo of the circular collection net and collected test material."],
+ ["⚙","Testing Setup","Add a photo of the controlled testing environment and measurement process."]
+];let slideIndex=0;
+function showSlide(){const s=slides[slideIndex];$("#galleryIcon").textContent=s[0];$("#galleryTitle").textContent=s[1];$("#gallerySub").textContent=s[2];$("#slideCounter").textContent=String(slideIndex+1).padStart(2,"0")+" / "+String(slides.length).padStart(2,"0");$("#galleryDots").innerHTML=slides.map((_,i)=>`<button class="dotbtn ${i===slideIndex?"active":""}" aria-label="Show slide ${i+1}" data-slide="${i}"></button>`).join("");document.querySelectorAll("[data-slide]").forEach(b=>b.addEventListener("click",()=>{slideIndex=Number(b.dataset.slide);showSlide()}))}
+$("#prevSlide").addEventListener("click",()=>{slideIndex=(slideIndex+slides.length-1)%slides.length;showSlide()});$("#nextSlide").addEventListener("click",()=>{slideIndex=(slideIndex+1)%slides.length;showSlide()});showSlide();
+
+const modalCopy={
+ problemModal:["The research problem","<p>This section should explain the local context, the evidence supporting the problem, and why the project is worth investigating. Add citations from the actual literature review and verified local sources.</p><p><b>Reminder:</b> do not claim the prototype cleans a real waterway unless that has been tested and documented.</p>"],
+ componentsModal:["Prototype components","<ul><li>Arduino Uno R3: main microcontroller.</li><li>L298N: motor-driver module.</li><li>Two HC-SR04 sensors: front and side distance sensing.</li><li>Two 1.5 L plastic-bottle floats.</li><li>Four-leaf propeller and circular collection net.</li></ul><p>Confirm the final parts list against the actual prototype before submission.</p>"],
+ resultsModal:["Data integrity","<p>The dashboard's moving readings are generated by this webpage only. They are not received from an Arduino, and the CSV export is labelled as demo data.</p><p>For real readings, the hardware needs a data connection to a computer or wireless module and a small receiver/service that forwards measurements to the webpage.</p>"]
+};
+document.querySelectorAll("[data-modal]").forEach(b=>b.addEventListener("click",()=>{const [title,body]=modalCopy[b.dataset.modal];$("#modalTitle").textContent=title;$("#modalBody").innerHTML=body;$("#modalBackdrop").classList.add("open")}));
+$("#closeModal").addEventListener("click",()=>$("#modalBackdrop").classList.remove("open"));$("#modalBackdrop").addEventListener("click",e=>{if(e.target===$("#modalBackdrop"))$("#modalBackdrop").classList.remove("open")});document.addEventListener("keydown",e=>{if(e.key==="Escape")$("#modalBackdrop").classList.remove("open")});
+$("#refsBtn").addEventListener("click",e=>{e.preventDefault();$("#modalTitle").textContent="References";$("#modalBody").innerHTML="<p>Add the full citations from your research paper here. Use the citation style required by your teacher and ensure every claim on this website is supported by a real source.</p>";$("#modalBackdrop").classList.add("open")});
+
+const canvas=$("#distanceChart"),ctx=canvas.getContext("2d");let values=[150,146,151,139,143,132,136,128,130,121,125,118],running=false,tick=null,collection=0;
+function drawChart(){const rect=canvas.getBoundingClientRect();const dpr=window.devicePixelRatio||1;canvas.width=Math.max(1,rect.width*dpr);canvas.height=Math.max(1,rect.height*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);const w=rect.width,h=rect.height,pad={l:32,r:10,t:15,b:25},cw=w-pad.l-pad.r,ch=h-pad.t-pad.b;ctx.clearRect(0,0,w,h);ctx.font="10px system-ui";ctx.strokeStyle="#ffffff20";ctx.fillStyle="#a9c5d0";ctx.lineWidth=1;for(let i=0;i<=4;i++){let y=pad.t+ch*i/4;ctx.beginPath();ctx.moveTo(pad.l,y);ctx.lineTo(w-pad.r,y);ctx.stroke();ctx.fillText(String(200-i*50),3,y+3)}let pts=values.map((v,i)=>({x:pad.l+i*cw/(values.length-1),y:pad.t+(200-v)/200*ch}));ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(p.x,p.y):ctx.moveTo(p.x,p.y));ctx.lineTo(pts[pts.length-1].x,pad.t+ch);ctx.lineTo(pts[0].x,pad.t+ch);ctx.closePath();let g=ctx.createLinearGradient(0,pad.t,0,pad.t+ch);g.addColorStop(0,"#12c7c244");g.addColorStop(1,"#3287f500");ctx.fillStyle=g;ctx.fill();ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(p.x,p.y):ctx.moveTo(p.x,p.y));ctx.strokeStyle="#19c9dc";ctx.lineWidth=2.5;ctx.stroke();pts.forEach(p=>{ctx.beginPath();ctx.arc(p.x,p.y,3,0,Math.PI*2);ctx.fillStyle="#d6ffff";ctx.fill()});ctx.fillStyle="#a9c5d0";ctx.fillText("0",pad.l-2,h-5);ctx.fillText("30 sec",w-48,h-5)}
+function stepDemo(){values.push(Math.max(20,Math.min(190,Math.round(values[values.length-1]+(Math.random()-.5)*32))));if(values.length>12)values.shift();$("#frontVal").textContent=values[values.length-1];$("#sideVal").textContent=Math.max(15,Math.min(190,Math.round(118+(Math.random()-.5)*45)));if(Math.random()>.82)collection++;$("#collectVal").textContent=collection;$("#statusVal").textContent="Running";drawChart()}
+$("#startDemo").addEventListener("click",()=>{if(running)return;running=true;$("#streamLabel").textContent="● Simulating";$("#statusVal").textContent="Running";$("#startDemo").textContent="● Demo running";tick=setInterval(stepDemo,1800);toast("Demo stream started. These are simulated readings.")});
+$("#pauseDemo").addEventListener("click",()=>{running=false;clearInterval(tick);$("#streamLabel").textContent="● Paused";$("#statusVal").textContent="Paused";$("#startDemo").textContent="▶ Resume demo stream";toast("Demo stream paused.")});
+$("#resetDemo").addEventListener("click",()=>{running=false;clearInterval(tick);values=[150,146,151,139,143,132,136,128,130,121,125,118];collection=0;$("#frontVal").textContent=152;$("#sideVal").textContent=118;$("#collectVal").textContent="0";$("#statusVal").textContent="Standby";$("#streamLabel").textContent="● Paused";$("#startDemo").textContent="▶ Start demo stream";drawChart();toast("Demo dashboard reset.")});
+window.addEventListener("resize",drawChart);if("ResizeObserver" in window)new ResizeObserver(drawChart).observe(canvas.parentElement);drawChart();
+
+$("#downloadCsv").addEventListener("click",()=>{const rows=[["label","front_distance_cm","side_distance_cm","collection_items","data_type"],...values.map((v,i)=>[i+1,v,"SIMULATED", "SIMULATED","DEMO ONLY"])];const csv=rows.map(r=>r.join(",")).join("\n");const blob=new Blob([csv],{type:"text/csv;charset=utf-8;"});const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download="tidebot_demo_data_NOT_EXPERIMENTAL.csv";a.click();URL.revokeObjectURL(url);toast("Demo CSV exported. It is not experimental data.")});
+</script>
+</body>
+</html>
